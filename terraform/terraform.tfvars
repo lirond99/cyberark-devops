@@ -3,8 +3,8 @@ app_name        = "hello-cyberark" # Do NOT enter any spaces
 app_environment = "dev"            # Dev, Test, Staging, Prod, etc
 
 # AWS
-aws_access_key  = ""
-aws_secret_key  = ""
+aws_access_key  = "AKIARMEJZJC4YH2RSYLN"
+aws_secret_key  = "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"
 aws_region      = "us-east-1"
 
 # Network

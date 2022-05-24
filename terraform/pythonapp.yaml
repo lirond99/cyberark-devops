@@ -1,0 +1,8 @@
+---
+- name: Install python web app
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+
+  roles:
+  - pythonapp
