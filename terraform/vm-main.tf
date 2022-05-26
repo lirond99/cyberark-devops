@@ -1,6 +1,6 @@
 # Create EC2 Instance
 resource "aws_instance" "linux-server" {
-  # count                       = var.instance_count
+  count                       = var.instance_count
   ami                         = data.aws_ami.ubuntu-linux-1804.id
   instance_type               = var.linux_instance_type
   subnet_id                   = module.vpc.private_subnets[0]
@@ -56,7 +56,7 @@ resource "aws_instance" "linux-server" {
   }
   
   tags = {
-    Name        = "${lower(var.app_name)}-${var.app_environment}-linux-server"
+    Name        = "${lower(var.app_name)}-${var.app_environment}-linux-server-${count.index + 1}"
     Environment = var.app_environment
   }
 }

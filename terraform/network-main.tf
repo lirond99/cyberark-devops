@@ -6,7 +6,7 @@ data "aws_availability_zones" "available" {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "vpc"
+  name = "vpc-${var.app_environment}"
   cidr = var.vpc_cidr
 
   azs             = [data.aws_availability_zones.available.names[0], 
@@ -28,7 +28,7 @@ module "elb_http" {
   source  = "terraform-aws-modules/elb/aws"
   version = "~> 2.0"
 
-  name = "elb"
+  name = "elb-${var.app_environment}"
 
   subnets         = [module.vpc.public_subnets[0], module.vpc.public_subnets[1]]
   security_groups = [aws_security_group.aws-elb-sg.id]
@@ -52,7 +52,7 @@ module "elb_http" {
   }
 
   number_of_instances = var.instance_count
-  instances           = [aws_instance.linux-server.id]
+  instances           = split(",","${join(",", aws_instance.linux-server.*.id)}")
 
   tags = {
     Environment = "elb-${var.app_environment}"
